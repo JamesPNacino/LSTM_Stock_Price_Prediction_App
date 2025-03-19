@@ -11,7 +11,10 @@ For the prediction shown in the image above, we can see below in the image, the 
 
 ![image_2](images/image_2.png)
 
-By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model uses 3
+By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model is trained with 30-day sequences, where each sequence includes 30 time steps (with each day representing one time step). For each time step, I use eight features: [Stock Price Open, Close, High, Low, RSI, MACD, Signal Line, MFI].
+
+
+## Requirements for running this application
 
 I used Amazon EC2 instance to host my web application. However, due to the costs of keeping the instance running, there is no direct link to the application, I currently have the application stopped. If you need me to turn on the application briefly, feel free to shoot me an email. Otherwise, you can download it onto your local computer, set up your own EC2 instance, or whatever cloud provider you choose to run this application.
 
