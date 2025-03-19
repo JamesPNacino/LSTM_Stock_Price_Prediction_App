@@ -1,5 +1,5 @@
 # LSTM_Stock_Price_Prediction_App
-This Flask web application leverages an ensemble of LSTM neural networks to predict short-term stock price movements. It also serves as my capstone project for the Master of Science in Data Analytics program at Western Governors University.
+This Flask web application leverages an ensemble of LSTM neural networks to predict short-term stock price movements of any stock of your choosing! It also serves as my capstone project for the Master of Science in Data Analytics program at Western Governors University.
 
 Using a neural network model like a LSTM to predict stock price movements I was able to deliver accurate forecasts based on historical stock price data and technical indicators like RSI, MACD, and MFI. **My model is able to predict future short-term stock price movements significantly more accurate than guessing.**
 
