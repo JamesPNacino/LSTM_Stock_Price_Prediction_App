@@ -3,15 +3,15 @@ This Flask web application leverages an ensemble of LSTM neural networks to pred
 
 Using a neural network model like a LSTM to predict stock price movements I was able to deliver accurate forecasts based on historical stock price data and technical indicators like RSI, MACD, and MFI. **My model is able to predict future short-term stock price movements significantly more accurate than guessing.**
 
-Below is an output from my application when a prediction from my model is retrieved:
+* Below is an output from my application when a prediction from my model is retrieved:
 
 ![image_1](images/image_1.png)
 
-For the prediction shown in the image above, we can see below in the image, the summary data for model training which is also available in my app.
+* For the prediction shown in the image above, we can see below in the image, the summary data for model training which is also available in my app.
 
 ![image_2](images/image_2.png)
 
-By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model is trained with 30-day sequences, where each sequence includes 30 time steps (with each day representing one time step). For each time step, I use eight features: [Stock Price Open, Close, High, Low, RSI, MACD, Signal Line, MFI].
+* By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model is trained with 30-day sequences, where each sequence includes 30 time steps (with each day representing one time step). For each time step, I use eight features: [Stock Price Open, Close, High, Low, RSI, MACD, Signal Line, MFI].
 
 
 ## Requirements for running this application
