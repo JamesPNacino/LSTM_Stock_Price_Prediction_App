@@ -35,9 +35,8 @@ I used a Ubuntu EC2 instance installed with Python 3.11. The steps to install my
    9. python3.11 get-pip.py
    10. sudo apt install python3-pip
    11. sudo apt install python3.11-venv
-3. In the ubuntu terminal, navigate inside the "web_app" folder
-  1. cd <Enter Path To 'web_app' folder>
-  2. python3.11 -m venv myflaskenv
-  3. source myflaskenv/bin/activate
-  4. pip3 install -r requirements.txt
-  5. python3.11 app.py
+   12. cd <Enter Path To 'web_app' folder> #navigate inside the 'web_app' folder
+   13. python3.11 -m venv myflaskenv
+   14. source myflaskenv/bin/activate
+   15. pip3 install -r requirements.txt
+   16. python3.11 app.py
