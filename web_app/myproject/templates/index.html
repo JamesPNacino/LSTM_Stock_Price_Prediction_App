@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Training</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Start Training Model</h1>
+    <form id="train-form">
+        <label for="data">Enter Training Data:</label>
+        <input type="text" id="data" name="data" placeholder="Enter training data">
+        <button type="submit">Start Training</button>
+    </form>
+    
+    <div id="response"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#train-form').submit(function(event) {
+                event.preventDefault();
+                var data = $('#data').val();
+
+                $.ajax({
+                    url: '/start_training',
+                    method: 'POST',
+                    data: {data: data},
+                    success: function(response) {
+                        $('#response').html(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        $('#response').html('There was an error starting the training.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+.navbar {
+  background: #b90000 !important;
+  padding: 0.9rem;
+}
+
+
+.card-header {
+	
+        display: flex;
+        align-items: center;
+          padding-top: 20px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+    }
+
+.card-body {
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+    }
+
+   a {
+   color: #1C4966;
+ }
+
+ .div-color1 {
+  background-color: #FFFFFF;
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+}
+
+.text-underline-hover {
+    text-decoration: none;
+}
+
+.text-underline-hover:hover {
+    text-decoration: underline;
+}

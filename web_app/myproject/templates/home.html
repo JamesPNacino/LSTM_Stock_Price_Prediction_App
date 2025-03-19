@@ -1,0 +1,117 @@
+{% extends "base.html"%}
+{% block content %}
+
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stock Price Prediction Using LSTM Neural Networks</title>
+
+
+</head>
+<body>
+
+
+
+
+<div class="container">
+	<div class="container my-5">
+	  <div class="p-5 text-start bg-body-white rounded-3">
+
+		<div id="message-container" style="display: none;">
+			<div class="alert alert-success" role="alert" id="training-message">
+				<p style="text-align: center;">Training has begun! If you submitted a model with the same parameters as before, it should be completed shortly, as it will use the same model weights.</p>
+			</div>
+		</div>
+
+		<h1 class="display-4">Stock Price Prediction Application</h1>
+				<hr class="my-4">
+				<p class="lead">My model which is described in this link, is able to predict future short-term stock price movements significantly more accurate than guessing. Please note, that using historical data to predict stock price movements does not guarantee future results. Each time you submit the form below, a new model will be trained from scratch, which will take a few minutes (5-10 minutes).  Once the model is trained, it can be used to make predictions on the latest stock market data.
+				<br><br>
+				It is recommended to make predictions using a candlestick pattern (such as hammer or inverted hammer) only when it appears in the most recent closing candle. To check if the stock ticker you are requesting currently exhibits one of these patterns, navigate to the 'Search Candlestick Patterns' tab. If no relevant pattern is present, you can use the 'Random' candlestick pattern, as the models and predictions using this are not dependent on specific patterns.
+				</p>
+				<hr class="my-4">
+
+			<form method="POST">
+				{{ form.hidden_tag() }}
+				<div class="mb-3">
+					<label class="form-label" title="Enter the stock ticker symbol (SPY, AAPL, MSFT, etc.)">Input stock ticker (hover over text for tooltips!)</label>
+					{{ form.ticker_query(class="form-control") }}
+				</div>
+				<div class="mb-3">
+					<label class="form-label" title="Train the model using a specific candlestick pattern. In this application, 30-day sequences are always used to train the LSTMs, with the final day of the sequence marking the end of the candlestick pattern. If 'Random' is selected, the model will still use 30-day sequences, but the conclusion of the sequence will not depend on any candlestick pattern, as the days are randomly chosen. Selecting 'Random' will provide more training data, as the number of candlestick patterns is limited, given that they occur infrequently in the real world, and random selection allows for a greater variety of sequences to be included in the training set.">Input candlestick pattern</label>
+					{{ form.pattern(class="form-select") }}
+				</div>
+				<div class="mb-3">
+					<label class="form-label" title="Specify the number of days ahead to be used for training the model ('days ahead' only calculates days that the stock market is open, so it excludes weekends and holidays). For instance, if set to one day, the closing price of the stock on the day following the completion of the identified candlestick pattern will be used as the target price.">Input days out parameter</label>
+					{{ form.days_out(class="form-select") }}
+				</div>
+				<div class="mb-3">
+					<label class="form-label" title="Specify the percent increase in the closing price to be used for training the model. For example, if set to 1.0, the model will label an observation as a positive class if the closing price of the stock on the day following the identified candlestick pattern is higher than the current price. If set to 1.01, the model will classify the observation as positive only if there is a 1% increase in the closing price.">Input percent increase parameter</label>
+					{{ form.pct_increase(class="form-select") }}
+				</div>
+				<div class="mb-3">
+					<label class="form-label" title="Specify the ending date for training your model. The starting date will never be earlier than '2000-01-01' and represents the earliest date used in data gathering. During preprocessing, this date will be adjusted closer to account for the time required to calculate metrics like MACD, signal line, RSI, and MFI which are financial indicators used by the model.">Ending date for gathering data (must format as yyyy-mm-dd):</label>
+					{{ form.data_end_date(class="form-control", value="2025-02-14") }}
+				</div>
+
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+
+			<br>
+			<hr class="my-4">
+			<h1 class="display-6">Previously Trained Models</h1>
+			<br>
+			<p class = "lead">In this section, you can view details of models that have been trained previously, along with a summary of their results. If the parameters below match those submitted in the form, the weights from the previously trained model will be loaded, and a new model will not be trained from scratch, saving time.</p>
+
+			{{ model_table_df | safe }}
+
+		</div>
+	</div>
+	
+
+	
+
+
+</div>
+
+
+<script>
+	//Script to display code for training
+    // Get the form and the submit button
+    const form = document.querySelector('form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const messageContainer = document.getElementById('message-container');
+
+    // Add event listener to the form submission
+    form.addEventListener('submit', function(event) {
+
+		// Disable the submit button to prevent multiple submissions
+		submitButton.disabled = true;
+
+        // Show the success message
+        messageContainer.style.display = 'block';
+        
+        // Optionally, you can add a timer to update the message every 10 seconds
+        let dotCount = 0;
+        setInterval(function() {
+            dotCount++;
+            document.getElementById('training-message').querySelector('p').innerHTML = `Training continuing${'.'.repeat(dotCount)}<br><br>Please do not refresh the page as it can take around 15 minutes to train.`;
+        }, 10000);  // Update message every 10 seconds
+
+		// Scroll the page back to the top
+        window.scrollTo(0, 0);  // Scroll to the top of the page
+
+        // You can now submit the form or perform other actions, like redirecting.
+        // Uncomment this line if you want the form to actually submit after the message shows:
+    	form.submit();
+    });
+</script>
+
+
+</body>
+
+
+
+
+{% endblock %}

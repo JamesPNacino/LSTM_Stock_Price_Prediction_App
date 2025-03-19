@@ -1,0 +1,144 @@
+{% extends "base.html"%}
+{% block content %}
+
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Model Results</title>
+
+<style>
+	a {
+	color: #1C4966;
+	}
+	
+.navbar {
+  background: #b90000 !important;
+}
+
+
+	.div-color1 {
+	background-color: #FFFFFF;
+	padding-top: 20px;
+	padding-right: 50px;
+	padding-bottom: 10px;
+	padding-left: 50px;
+	}
+
+</style>
+
+
+</head>
+
+
+<div class="container">
+	<div class="container my-5">
+	  <div class="p-5 text-start bg-body-white rounded-3">
+		
+		{% if not last_close %}
+		<!-- Message container hidden by default -->
+		<div id="message-container" style="display: none;">
+			<div class="alert alert-success" role="alert" id="training-message">
+				<p style="text-align: center;">Prediction in progress... Please hold on!<br><br>Please do not refresh the page.</p>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if last_close %}
+			<div class="alert alert-success" role="alert" id="training-message">
+				<h1 class="display-6">Prediction Results</h1>
+				<hr class="my-4">
+				<p>		
+					
+					As this model implements an ensemble approach, 9 LSTM models were each trained on {{total_observations}} observations using stratified 5-fold cross validation, and utilizes the parameters that were specified by the user. An ensemble approach to predicting means that the majority wins. {{ votes }} out of the 9 models voted that the prediction would be a positive class. This means that the majority votes <b>resulted that the prediction will be {{ results }}, which means it is a {{str_class}} class</b>; that the closing price {{days_out}} days in the future will {{str_class2}} above ${{goal_price}} (this value was calculated as ${{last_close}}(the most recent closing price as of {{last_row_date}}) * {{pct_increase}}(percent increase parameter)).
+					
+				</p>
+			</div>
+		{% endif %}
+
+
+		<h1 class="display-6">Model Results</h1>
+		<hr class="my-4">
+		<p>Stock ticker requested: {{ticker_query}}</p>
+		<p>Candlestick pattern requested: {{pattern}}</p>
+		<p>Days out parameter requested: {{days_out}}</p>
+		<p>Percent increase parameter requested: {{pct_increase}}</p>
+		<p>Data end date requested: {{data_end_date}}</p>
+		<hr class="my-4">
+
+		<p>Total observations (train + validation sets): {{total_observations}}</p>
+		<p>Total false labels (train + validation sets): {{total_false_labels}}</p>
+		<p>Total true labels (train + validation sets): {{total_true_labels}}</p>
+		<p>Majority class (train + validation sets): {{Majority_class_pct}}</p>
+
+		<p>Because the model is trained using stratified 5-fold cross-validation, the total number of observations includes both the training data and the validation set. This is because, during cross-validation, the dataset is split into several subsets, and each subset is used as the validation set at least once while the remaining subsets are used for training. As a result, for the "Total observations (train + validation sets)" label, all data points are observed.</p>
+		<hr class="my-4">
+
+		<p>Total observations (test set): {{total_observations_test}}</p>
+		<p>Total false labels (test set): {{total_false_labels_test}}</p>
+		<p>Total true labels (test set): {{total_true_labels_test}}</p>
+		<b><p>Majority class (test set): {{Majority_test_class_pct}}</p></b>
+		<br>
+		<p>Total incorrect predictions (test set): {{total_incorrect_test}}</p>
+		<p>Total correct predictions (test set): {{total_correct_test}}</p>
+		<b><p>Accuracy: {{Accuracy}}</p></b>
+
+		<p>The test set is kept separate and is not used during the model training process. After training, the model is then evaluated using the test set.</p>
+		
+		<p>Note: If you selected the 'Random' candlestick pattern, you may notice a large test dataset, as there was enough data available to set aside. However, if you selected the 'Hammer' and 'Inverted Hammer' patterns, these occurrences were less frequent, and the test set was limited to 10% of the available data.</p>
+		<hr class="my-4">
+
+		<b><p>Confusion Matrix</p></b>
+		<p>True Negatives (test): {{True_Negatives}}</p>
+		<p>True Positives (test): {{True_Positives}}</p>
+		<p>False Negatives (test): {{False_Negatives}}</p>
+		<p>False Positives (test): {{False_Positives}}</p>
+		<hr class="my-4">
+
+		<p class="lead">If you're satisfied with the training results and confident in the model, click the button below to make predictions using the most recent stock market data for the stock ticker <b>{{ticker_query}}</b>. This prediction is based on the <b>{{pattern}}</b> candlestick pattern and forecasts <b>{{days_out}}</b> days ahead. Specifically, if the closing price on that day exceeds the most recent closing price by a factor of <b>{{pct_increase}}</b>, the model will predict a positive class ('1'). Otherwise, it will predict a negative class ('0').
+		</p>
+		<p>Note: That a factor of {{pct_increase}} means that this application will take the most recent closing price and multiply it by that factor of {{pct_increase}}.</p>
+		<form method="POST">
+			{{ form.hidden_tag() }}
+			<button type="submit" class="btn btn-primary" id="submit-button">Predict!!!</button>
+		</form>
+
+
+
+		</div>
+	</div>
+	
+	<script>
+		// Get the form and message container
+		const form = document.querySelector('form');
+		const messageContainer = document.getElementById('message-container');
+		const submitButton = document.getElementById('submit-button'); 
+		
+		// Add event listener to the form submission
+		form.addEventListener('submit', function(event) {
+			// Prevent the form from actually submitting immediately
+			//event.preventDefault();
+
+			submitButton.disabled = true;
+
+			
+			// Show the message immediately after the form is submitted
+			messageContainer.style.display = 'block';
+
+			// Scroll the page back to the top
+			window.scrollTo(0, 0);  // Scroll to the top of the page
+			
+			// After a short delay (e.g., 1 second), submit the form
+			setTimeout(function() {
+				form.submit();  // Now submit the form after the message is shown
+			}, 1000);  // Adjust the timeout duration as needed (1 second delay here)
+		});
+	</script>
+	
+	
+	
+</div>
+
+
+{% endblock %}
