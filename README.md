@@ -3,6 +3,9 @@ This Flask web application leverages an ensemble of LSTM neural networks to pred
 
 Using a neural network model like a LSTM to predict stock price movements I was able to deliver accurate forecasts based on historical stock price data and technical indicators like RSI, MACD, and MFI. **My model is able to predict future short-term stock price movements significantly more accurate than guessing.**
 
+By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model is trained with 30-day sequences, where each sequence includes 30 time steps (with each day representing one time step). For each time step, I use eight features: [Stock Price Open, Close, High, Low, RSI, MACD, Signal Line, MFI].
+
+
 * Below is an output from my application when a prediction from my model is retrieved:
 
 ![image_1](images/image_1.png)
@@ -11,8 +14,9 @@ Using a neural network model like a LSTM to predict stock price movements I was 
 
 ![image_2](images/image_2.png)
 
-* By combining bullish candlestick patterns with these additional indicators, traders can make better-informed decisions instead of relying solely on pattern analysis. LSTM models excel at capturing long-term trends, which makes its use ideal for stock price predictions. My model is trained with 30-day sequences, where each sequence includes 30 time steps (with each day representing one time step). For each time step, I use eight features: [Stock Price Open, Close, High, Low, RSI, MACD, Signal Line, MFI].
+* Below in my app is another feature. We can view details of models that have been trained previously, along with a quick summary of their results, in a table view. If the parameters below match those submitted in the form, the weights from the previously trained model will be loaded, and a new model will not be trained from scratch, saving time!
 
+![image_3](images/image_3.png)
 
 ## Requirements for running this application
 
