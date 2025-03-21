@@ -16,7 +16,7 @@ Using a neural network model like a LSTM to predict stock price movements I was 
 
 ## Requirements for running this application
 
-I used Amazon EC2 instance to host my web application. However, due to the costs of keeping the instance running, there is no direct link to the application, I currently have the application stopped. If you need me to turn on the application briefly, feel free to shoot me an email. Otherwise, you can download it onto your local computer, set up your own EC2 instance, or whatever cloud provider you choose to run this application.
+I used Amazon EC2 instance to host my web application. However, due to the costs of keeping the instance running, there is no direct link to the application, I currently have the application stopped. If you need me to turn on the application briefly, feel free to shoot me an email. Otherwise, you can download it onto your local computer, set up your own EC2 instance, or whatever cloud provider you choose to run this application. Once running, please ensure that your computer's sleep time is set to at least '30 minutes', as the browser may show that the computer went to sleep, causing the app to stop prematurely.
 
 Using my own PC, which has an Intel(R) Core(TM) Ultra 9 processor and 32.0 GB of RAM, I am able to smoothly run the application. However, when hosting the same application on an EC2 instance (type c5.2xlarge, with 8 CPUs and 16.0 GB of memory), I noticed that model training was a bit slower, but it was still able to smoothly run the application.
 
